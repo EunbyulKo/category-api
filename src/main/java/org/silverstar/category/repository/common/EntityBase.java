@@ -1,4 +1,4 @@
-package org.silverstar.category.repository;
+package org.silverstar.category.repository.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

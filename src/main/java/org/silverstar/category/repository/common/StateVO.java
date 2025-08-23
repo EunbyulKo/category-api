@@ -1,4 +1,4 @@
-package org.silverstar.category.repository;
+package org.silverstar.category.repository.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -26,6 +26,10 @@ public class StateVO {
     public StateVO(CategoryState state) {
         this.useYn = state.isUseYn();
         this.dispYn = state.isDispYn();
+    }
+
+    public CategoryState toCategoryState() {
+        return CategoryState.create(this.useYn, this.dispYn);
     }
 
 }

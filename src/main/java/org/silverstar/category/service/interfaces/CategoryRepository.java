@@ -1,4 +1,4 @@
-package org.silverstar.category.application.interfaces;
+package org.silverstar.category.service.interfaces;
 
 import org.silverstar.category.domain.Category;
 

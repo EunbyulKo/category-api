@@ -1,7 +1,7 @@
-package org.silverstar.category.application;
+package org.silverstar.category.service;
 
 import org.junit.jupiter.api.Test;
-import org.silverstar.category.application.interfaces.CategoryRepository;
+import org.silverstar.category.service.interfaces.CategoryRepository;
 import org.silverstar.category.domain.Category;
 
 import java.util.List;

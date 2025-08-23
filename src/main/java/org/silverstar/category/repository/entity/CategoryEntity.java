@@ -7,15 +7,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.silverstar.category.domain.Category;
-import org.silverstar.category.repository.EntityBase;
-import org.silverstar.category.repository.StateVO;
+import org.silverstar.category.repository.common.EntityBase;
+import org.silverstar.category.repository.common.StateVO;
 
 @Entity
 @Table(name="tb_category")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class CateogoryEntity extends EntityBase {
+public class CategoryEntity extends EntityBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,14 +35,22 @@ public class CateogoryEntity extends EntityBase {
             foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),
             insertable = false, updatable = false
     )
-    private CateogoryEntity parent;
+    private CategoryEntity parent;
 
-    public CateogoryEntity(Category category) {
+    public CategoryEntity(Category category) {
         this.id = category.getId();
         this.name = category.getName();
         this.state = new StateVO(category.getState());
         this.parentId = category.getParentId();
+    }
 
+    public Category toCategory() {
+        return Category.create(
+                this.id,
+                this.name,
+                this.parentId,
+                this.state.toCategoryState()
+        );
     }
 
 }

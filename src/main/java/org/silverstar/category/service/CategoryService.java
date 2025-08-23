@@ -1,20 +1,20 @@
-package org.silverstar.category.application;
+package org.silverstar.category.service;
 
-import org.silverstar.category.application.interfaces.CategoryRepository;
+import lombok.RequiredArgsConstructor;
+import org.silverstar.category.service.interfaces.CategoryRepository;
 import org.silverstar.category.domain.Category;
 import org.silverstar.category.domain.CategoryState;
-import org.silverstar.category.dto.CreateCategoryRequestDto;
-import org.silverstar.category.dto.UpdateCategoryRequestDto;
+import org.silverstar.category.controller.dto.CreateCategoryRequestDto;
+import org.silverstar.category.controller.dto.UpdateCategoryRequestDto;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
-
-    public CategoryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
     public Category getCategory(Long id) {
         return categoryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Category not found"));

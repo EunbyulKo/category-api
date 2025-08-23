@@ -1,4 +1,4 @@
-package org.silverstar.category.repository;
+package org.silverstar.category.repository.common;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
