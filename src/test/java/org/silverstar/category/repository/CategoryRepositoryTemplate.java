@@ -1,25 +1,18 @@
 package org.silverstar.category.repository;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.silverstar.category.domain.Category;
 import org.silverstar.category.service.interfaces.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-@Import(CategoryRepositoryImpl.class)
-class CategoryRepositoryImplTest extends CategoryTemplate {
+public abstract class CategoryRepositoryTemplate extends CategoryTemplate {
 
     @Autowired
-    CategoryRepository categoryRepository;
+    protected CategoryRepository categoryRepository;
 
     @Test
     void save_findById_Test() {
