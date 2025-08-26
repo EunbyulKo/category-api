@@ -2,8 +2,10 @@ package org.silverstar.category.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.silverstar.category.domain.Category;
+import org.silverstar.category.repository.dsl.CategoryQueryRepository;
 import org.silverstar.category.repository.entity.CategoryEntity;
 import org.silverstar.category.repository.jpa.JpaCategoryRepository;
+import org.silverstar.category.service.dto.CategoryPreviewDto;
 import org.silverstar.category.service.interfaces.CategoryRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 public class CategoryRepositoryImpl implements CategoryRepository {
 
     private final JpaCategoryRepository jpaCategoryRepository;
+    private final CategoryQueryRepository categoryQueryRepository;
 
     @Override
     public Optional<Category> findById(Long id) {
@@ -43,5 +46,10 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         CategoryEntity entity = new CategoryEntity(category);
         entity = jpaCategoryRepository.save(entity);
         return entity.toCategory();
+    }
+
+    @Override
+    public List<CategoryPreviewDto> getPreviewChildren(Long id) {
+        return categoryQueryRepository.getPreviewChildren(id);
     }
 }
