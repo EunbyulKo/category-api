@@ -46,6 +46,11 @@ public class FakeCategoryRepository implements CategoryRepository {
     }
 
     @Override
+    public List<Long> findChildIds(Long parentId) {
+        return findByParentId(parentId).stream().map(Category::getId).toList();
+    }
+
+    @Override
     public Category save(Category post) {
         return post;
     }

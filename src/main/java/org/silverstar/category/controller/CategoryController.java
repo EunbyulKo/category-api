@@ -33,6 +33,12 @@ public class CategoryController {
         return Response.ok(responseDtos);
     }
 
+    @GetMapping("/preview/children/{categoryId}")
+    public Response<List<Long>> getPreviewChildrenIds(@PathVariable(name = "categoryId") Long parentId) {
+        List<Long> ids = categoryService.getChildIds(parentId);
+        return Response.ok(ids);
+    }
+
     @PostMapping
     public Response<Long> createPost(@RequestBody CreateCategoryRequestDto dto) {
         Category category = categoryService.createCategory(dto);

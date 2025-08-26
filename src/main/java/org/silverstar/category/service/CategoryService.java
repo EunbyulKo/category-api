@@ -24,6 +24,10 @@ public class CategoryService {
         return categoryRepository.findByParentId(parentId);
     }
 
+    public List<Long> getChildIds(Long parentId) {
+        return categoryRepository.findChildIds(parentId);
+    }
+
     public Category createCategory(CreateCategoryRequestDto dto) {
         CategoryState state = CategoryState.create(dto.useYn(), dto.dispYn());
         Category category = Category.create(null, dto.name(), dto.parentId(), state);

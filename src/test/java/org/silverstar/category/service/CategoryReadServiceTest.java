@@ -7,6 +7,7 @@ import org.silverstar.category.domain.Category;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CategoryReadServiceTest {
 
@@ -48,6 +49,16 @@ class CategoryReadServiceTest {
 
         //then
         assertEquals(2, categories.size());
+    }
+
+    @Test
+    void getChildrenIds_depth1() {
+        //when
+        List<Long> ids = categoryService.getChildIds(100L);
+
+        //then
+        assertEquals(2, ids.size());
+        assertTrue(ids.contains(201L));
     }
 
 }

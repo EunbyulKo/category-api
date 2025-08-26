@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class CategoryRepositoryTemplate extends CategoryTemplate {
 
@@ -32,17 +33,36 @@ public abstract class CategoryRepositoryTemplate extends CategoryTemplate {
         //given
         Category category = Category.create(null, name, parentId, state);
         Category parent = categoryRepository.save(category);
-
-        Category childCategory1 = Category.create(null, name, parent.getId(), state);
-        Category childCategory2 = Category.create(null, name, parent.getId(), state);
-        categoryRepository.save(childCategory1);
-        categoryRepository.save(childCategory2);
+        saveChildren(parent);
+        saveChildren(parent);
 
         //when
         List<Category> children = categoryRepository.findByParentId(parent.getId());
 
         //then
         assertEquals(2, children.size());
+    }
+
+    @Test
+    void save_findChildIds_Test() {
+        //given
+        Category category = Category.create(null, name, parentId, state);
+        Category parent = categoryRepository.save(category);
+        Category child1 = saveChildren(parent);
+        Category child2 = saveChildren(parent);
+
+        //when
+        List<Long> ids = categoryRepository.findChildIds(parent.getId());
+
+        //then
+        assertEquals(2, ids.size());
+        assertTrue(ids.contains(child1.getId()));
+        assertTrue(ids.contains(child2.getId()));
+    }
+
+    private Category saveChildren(Category parent) {
+        Category childCategory = Category.create(null, name, parent.getId(), state);
+        return categoryRepository.save(childCategory);
     }
 
 

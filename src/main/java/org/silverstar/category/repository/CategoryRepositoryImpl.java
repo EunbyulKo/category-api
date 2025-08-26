@@ -34,6 +34,11 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
+    public List<Long> findChildIds(Long parentId) {
+        return jpaCategoryRepository.findChildIds(parentId);
+    }
+
+    @Override
     public Category save(Category category) {
         CategoryEntity entity = new CategoryEntity(category);
         entity = jpaCategoryRepository.save(entity);
