@@ -1,5 +1,6 @@
 package org.silverstar.category.service;
 
+import org.silverstar.category.service.dto.CategoryPreviewDto;
 import org.silverstar.category.service.interfaces.CategoryRepository;
 import org.silverstar.category.domain.Category;
 import org.silverstar.category.domain.CategoryState;
@@ -53,5 +54,10 @@ public class FakeCategoryRepository implements CategoryRepository {
     @Override
     public Category save(Category post) {
         return post;
+    }
+
+    @Override
+    public List<CategoryPreviewDto> getPreviewChildren(Long id) {
+        return List.of();
     }
 }

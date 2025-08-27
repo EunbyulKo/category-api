@@ -1,6 +1,8 @@
 package org.silverstar.category.controller.common;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -9,14 +11,18 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public Response<Void> handleIllegalArgumentException(IllegalArgumentException exception) {
+    public ResponseEntity<Response<Void>> handleIllegalArgumentException(IllegalArgumentException exception) {
         log.error(exception.getMessage(), exception);
-        return Response.error(ErrorCode.INVALID_INPUT_VALUE);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(Response.error(ErrorCode.INVALID_INPUT_VALUE));
     }
 
     @ExceptionHandler(Exception.class)
-    public Response<Void> handleException(Exception exception) {
+    public ResponseEntity<Response<Void>> handleException(Exception exception) {
         log.error(exception.getMessage(), exception);
-        return Response.error(ErrorCode.INTERNAL_ERROR);
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Response.error(ErrorCode.INTERNAL_ERROR));
     }
 }
