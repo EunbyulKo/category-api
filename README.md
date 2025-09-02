@@ -28,6 +28,11 @@
    - `save()` 호출 시 발생하는 불필요한 `select`를 줄여 성능 최적화
    - 영속성 컨텍스트를 무시하고 DB에 직접 반영되므로 캐시 초기화 필요
   
+3. **원자적 SQL 실행**  
+   - 동시성 상황에서도 lost update 방지
+   - 예시: [post-count 예제](https://github.com/EunbyulKo/post-count)
+
+  
 
 <br/>
 <br/>
