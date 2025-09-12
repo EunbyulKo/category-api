@@ -32,7 +32,7 @@
   
 3. **원자적 SQL 실행**  
    - 동시성 상황에서도 lost update 방지
-   - 예시: [post-count 예제](https://github.com/EunbyulKo/post-count)
+   - 예시: [post-count 프로젝트](https://github.com/EunbyulKo/post-count)
 
   
 
@@ -49,5 +49,6 @@
 | **Repository** | 1. `@DataJpaTest` + H2 <br/> 2. `@DataJpaTest` + Docker MySQL + DatabaseCleanup  |
 | **Controller** | `@WebMvcTest` + MockMvc |
 | **인수테스트** | Docker MySQL + DatabaseCleanup + RestAssured  |
+| **Redis,Kafka** | TestContainers 혹은 Embedded ([post-count 프로젝트](https://github.com/EunbyulKo/post-count)) |
 
 
