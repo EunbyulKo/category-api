@@ -14,7 +14,8 @@
 | 등록자, 수정자     | `AuditorAware` 구현 |
 | 전시여부, 사용여부 | `@Embeddable` + `@Embedded` 을 활용한 임베디드 Value Object |
 | 상위카테고리       | `@ManyToOne(fetch = FetchType.LAZY)` 사용 + 쓰기/읽기 분리 이중 매핑 패턴|
-| (예정) 카테고리 이미지 | `Cascade` 활용 |
+| 카테고리 이미지 | `cascade`, `orphanRemoval` 옵션  |
+| (예정) 카테고리 태그 | JPQL `fetch join` 사용  |
 
 <br/>
 <br/>
@@ -34,6 +35,8 @@
    - 동시성 상황에서도 lost update 방지
    - 예시: [post-count 프로젝트](https://github.com/EunbyulKo/post-count)
 
+4. **fetch join**  
+   - 연관 엔티티 조회 시 row별로 `select` 호출하지 않고 한 번의 쿼리로 조회 (N+1 문제)
   
 
 <br/>
@@ -47,6 +50,7 @@
 | **Domain**   | 순수 단위 테스트 |
 | **Service**  | Fake 객체를 활용한 단위 테스트 |
 | **Repository** | 1. `@DataJpaTest` + H2 <br/> 2. `@DataJpaTest` + Docker MySQL + DatabaseCleanup  |
+| **Repository(Entity)**  | `@DataJpaTest` + H2 + TestEntityManager |
 | **Controller** | `@WebMvcTest` + MockMvc |
 | **인수테스트** | Docker MySQL + DatabaseCleanup + RestAssured  |
 | **Redis,Kafka** | TestContainers 혹은 Embedded ([post-count 프로젝트](https://github.com/EunbyulKo/post-count)) |
