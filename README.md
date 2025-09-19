@@ -51,7 +51,7 @@
 | **Service**  | Fake 객체를 활용한 단위 테스트 |
 | **Repository** | 1. `@DataJpaTest` + H2 <br/> 2. `@DataJpaTest` + Docker MySQL + DatabaseCleanup  |
 | **Repository(Entity)**  | `@DataJpaTest` + H2 + TestEntityManager |
-| **Controller** | `@WebMvcTest` + MockMvc |
+| **Controller** | `@WebMvcTest` + MockMvc + Mockito |
 | **인수테스트** | Docker MySQL + DatabaseCleanup + RestAssured  |
 | **Redis,Kafka** | TestContainers 혹은 Embedded ([post-count 프로젝트](https://github.com/EunbyulKo/post-count)) |
 
