@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.silverstar.category.controller.dto.UpdateCategoryRequestDto;
 import org.silverstar.category.domain.Category;
-import org.silverstar.category.domain.CategoryState;
 import org.silverstar.category.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -14,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -25,9 +25,9 @@ class CategoryReadControllerTest {
 
     @BeforeEach
     void setup() {
-        Category mockCategory = Category.create(100L, "카테고리A", null, CategoryState.create(true, true));
+        Category returned = mock(Category.class);
         Mockito.when(categoryService.updateCategory(any(UpdateCategoryRequestDto.class)))
-                .thenReturn(mockCategory);
+                .thenReturn(returned);
     }
 
     @Test

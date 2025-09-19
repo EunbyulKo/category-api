@@ -2,6 +2,9 @@ package org.silverstar.category.domain;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CategoryCreateTest extends CategoryTemplate {
@@ -9,7 +12,7 @@ class CategoryCreateTest extends CategoryTemplate {
     @Test
     void 성공() {
         //given
-        Category category = Category.create(null, name, parentId, state);
+        Category category = Category.create(null, name, parentId, state, images);
 
         //then
         assertNotNull(category);
@@ -24,7 +27,7 @@ class CategoryCreateTest extends CategoryTemplate {
         String name = null;
 
         // then
-        assertThrows(IllegalArgumentException.class, () -> Category.create(null, name, parentId, state));
+        assertThrows(IllegalArgumentException.class, () -> Category.create(null, name, parentId, state, images));
     }
 
     @Test
@@ -33,7 +36,7 @@ class CategoryCreateTest extends CategoryTemplate {
         String name = "";
 
         // then
-        assertThrows(IllegalArgumentException.class, () -> Category.create(null, name, parentId, state));
+        assertThrows(IllegalArgumentException.class, () -> Category.create(null, name, parentId, state, images));
     }
 
     @Test
@@ -42,7 +45,7 @@ class CategoryCreateTest extends CategoryTemplate {
         String name = "50자50자50자50자50자50자50자50자50자50자50자50자50자50자50자50자50자50자50자50자50자";
 
         // then
-        assertThrows(IllegalArgumentException.class, () -> Category.create(null, name, parentId, state));
+        assertThrows(IllegalArgumentException.class, () -> Category.create(null, name, parentId, state, images));
     }
 
     @Test
@@ -51,7 +54,25 @@ class CategoryCreateTest extends CategoryTemplate {
         CategoryState state = null;
 
         // then
-        assertThrows(IllegalArgumentException.class, () -> Category.create(null, name, parentId, state));
+        assertThrows(IllegalArgumentException.class, () -> Category.create(null, name, parentId, state, images));
+    }
+
+    @Test
+    void 실패_images가_null() {
+        // when
+        List<CategoryImage> images = null;
+
+        // then
+        assertThrows(NullPointerException.class, () -> Category.create(null, name, parentId, state, images));
+    }
+
+    @Test
+    void 실패_images가_size1() {
+        // when
+        List<CategoryImage> images = List.of(CategoryImage.create("url"));
+
+        // then
+        assertThrows(IllegalArgumentException.class, () -> Category.create(null, name, parentId, state, images));
     }
 
 }

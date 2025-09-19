@@ -1,5 +1,6 @@
 package org.silverstar.category.service;
 
+import org.silverstar.category.domain.CategoryImage;
 import org.silverstar.category.service.dto.CategoryPreviewDto;
 import org.silverstar.category.service.interfaces.CategoryRepository;
 import org.silverstar.category.domain.Category;
@@ -16,13 +17,15 @@ public class FakeCategoryRepository implements CategoryRepository {
     public FakeCategoryRepository() {
         String name = "카테고리이름";
         CategoryState state = CategoryState.create(Boolean.TRUE, Boolean.FALSE);
+        CategoryImage image = CategoryImage.create("url");
+        List<CategoryImage> images = List.of(image, image);
 
-        categories.add(Category.create(100L, name, null, state));
+        categories.add(Category.create(100L, name, null, state, images));
 
-        categories.add(Category.create(200L, name, 100L, state));
-        categories.add(Category.create(201L, name, 100L, state));
+        categories.add(Category.create(200L, name, 100L, state, images));
+        categories.add(Category.create(201L, name, 100L, state, images));
 
-        categories.add(Category.create(300L, name, 200L, state));
+        categories.add(Category.create(300L, name, 200L, state, images));
     }
 
     @Override
@@ -52,7 +55,12 @@ public class FakeCategoryRepository implements CategoryRepository {
     }
 
     @Override
-    public Category save(Category post) {
+    public Category create(Category post) {
+        return post;
+    }
+
+    @Override
+    public Category update(Category post) {
         return post;
     }
 

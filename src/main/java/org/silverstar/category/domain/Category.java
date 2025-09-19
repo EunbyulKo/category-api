@@ -1,26 +1,33 @@
 package org.silverstar.category.domain;
 
+import lombok.Getter;
+
+import java.util.List;
 import java.util.Objects;
 
+@Getter
 public class Category {
 
     private final Long id;
     private String name;
     private Long parentId;
     private CategoryState state;
+    private List<CategoryImage> images;
 
-    public static Category create(Long id, String name, Long parentId, CategoryState state) {
-        return new Category(id, name, parentId, state);
+    public static Category create(Long id, String name, Long parentId, CategoryState state, List<CategoryImage> images) {
+        return new Category(id, name, parentId, state, images);
     }
 
-    private Category(Long id, String name, Long parentId, CategoryState state) {
+    private Category(Long id, String name, Long parentId, CategoryState state, List<CategoryImage> images) {
         validateName(name);
         validateState(state);
+        validateImages(images);
 
         this.id = id;
         this.name = name;
         this.parentId = parentId;
         this.state = state;
+        this.images = images;
     }
 
     public void updateName(String name) {
@@ -35,6 +42,11 @@ public class Category {
     public void updateState(CategoryState state) {
         validateState(state);
         this.state = state;
+    }
+
+    public void updateImages(List<CategoryImage> images) {
+        validateImages(images);
+        this.images = images;
     }
 
     public boolean isTopLevel() {
@@ -57,20 +69,10 @@ public class Category {
         }
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public CategoryState getState() {
-        return state;
+    private void validateImages(List<CategoryImage> images) {
+        if (images.size() != 2) {
+            throw new IllegalArgumentException("Exactly 2 images are required");
+        }
     }
 
     @Override

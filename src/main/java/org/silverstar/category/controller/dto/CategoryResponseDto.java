@@ -1,3 +1,5 @@
 package org.silverstar.category.controller.dto;
 
-public record CategoryResponseDto(Long id, String name, Long parentId, String useYn, String dispYn) {}
+import java.util.List;
+
+public record CategoryResponseDto(Long id, String name, Long parentId, String useYn, String dispYn, List<String> imageUrl) {}

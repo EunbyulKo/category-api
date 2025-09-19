@@ -1,4 +1,4 @@
-package org.silverstar.category.repository;
+package org.silverstar.category.repository.entity;
 
 import org.silverstar.category.domain.CategoryImage;
 import org.silverstar.category.domain.CategoryState;
@@ -14,5 +14,5 @@ class CategoryTemplate {
 
     CategoryImage image = CategoryImage.create("url1");
     List<CategoryImage> images = Arrays.asList(image, image);
-
+    
 }

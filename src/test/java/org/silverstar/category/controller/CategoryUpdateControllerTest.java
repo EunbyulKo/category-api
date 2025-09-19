@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.silverstar.category.controller.dto.UpdateCategoryRequestDto;
 import org.silverstar.category.domain.Category;
+import org.silverstar.category.domain.CategoryImage;
 import org.silverstar.category.domain.CategoryState;
 import org.silverstar.category.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,17 +33,19 @@ class CategoryUpdateControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    private final List<String> images = Arrays.asList("url1", "url2");
+
     @BeforeEach
     void setup() {
-        Category mockCategory = Category.create(1L, "카테고리A", null, CategoryState.create(true, true));
+        Category returned = mock(Category.class);
         Mockito.when(categoryService.updateCategory(any(UpdateCategoryRequestDto.class)))
-                .thenReturn(mockCategory);
+                .thenReturn(returned);
     }
 
     @Test
     void updateCategory_success() throws Exception {
         UpdateCategoryRequestDto dto = new UpdateCategoryRequestDto(
-                1L, "카테고리수정", 2L, true, true
+                1L, "카테고리수정", 2L, true, true, images
         );
 
         mvc.perform(patch("/category")
@@ -51,7 +58,7 @@ class CategoryUpdateControllerTest {
     @Test
     void updateCategory_fail_missingName() throws Exception {
         UpdateCategoryRequestDto dto = new UpdateCategoryRequestDto(
-                1L, "", 2L, true, true   // name이 빈 문자열 → @NotBlank 위반
+                1L, "", 2L, true, true, images   // name이 빈 문자열 → @NotBlank 위반
         );
 
         mvc.perform(
@@ -65,7 +72,7 @@ class CategoryUpdateControllerTest {
     @Test
     void updateCategory_fail_missingId() throws Exception {
         UpdateCategoryRequestDto dto = new UpdateCategoryRequestDto(
-                null, "카테고리수정", 2L, true, true
+                null, "카테고리수정", 2L, true, true, images
         );
 
         mvc.perform(

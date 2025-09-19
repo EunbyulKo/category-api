@@ -42,8 +42,16 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
-    public Category save(Category category) {
-        CategoryEntity entity = new CategoryEntity(category);
+    public Category create(Category category) {
+        CategoryEntity entity = CategoryEntity.createCategory(category);
+        entity = jpaCategoryRepository.save(entity);
+        return entity.toCategory();
+    }
+
+    public Category update(Category category) {
+        CategoryEntity entity = jpaCategoryRepository.findById(category.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Category not found: " + category.getId()));
+        entity.updateCategory(category);
         entity = jpaCategoryRepository.save(entity);
         return entity.toCategory();
     }

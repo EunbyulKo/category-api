@@ -1,6 +1,7 @@
 package org.silverstar.category.service;
 
 import lombok.RequiredArgsConstructor;
+import org.silverstar.category.domain.CategoryImage;
 import org.silverstar.category.service.interfaces.CategoryRepository;
 import org.silverstar.category.domain.Category;
 import org.silverstar.category.domain.CategoryState;
@@ -30,19 +31,22 @@ public class CategoryService {
 
     public Category createCategory(CreateCategoryRequestDto dto) {
         CategoryState state = CategoryState.create(dto.useYn(), dto.dispYn());
-        Category category = Category.create(null, dto.name(), dto.parentId(), state);
-        return categoryRepository.save(category);
+        List<CategoryImage> images = dto.imageUrl().stream().map(CategoryImage::create).toList();
+        Category category = Category.create(null, dto.name(), dto.parentId(), state, images);
+        return categoryRepository.create(category);
     }
 
     public Category updateCategory(UpdateCategoryRequestDto dto) {
         CategoryState state = CategoryState.create(dto.useYn(), dto.dispYn());
+        List<CategoryImage> images = dto.imageUrl().stream().map(CategoryImage::create).toList();
 
         Category category = getCategory(dto.id());
 
         category.updateName(dto.name());
         category.updateParentId(dto.parentId());
         category.updateState(state);
+        category.updateImages(images);
 
-        return categoryRepository.save(category);
+        return categoryRepository.update(category);
     }
 }

@@ -11,7 +11,8 @@ public interface CategoryRepository {
     Optional<Category> findById(Long id);
     List<Category> findByParentId(Long parentId);
     List<Long> findChildIds(Long parentId);
-    Category save(Category post);
+    Category create(Category post);
+    Category update(Category post);
 
     List<CategoryPreviewDto> getPreviewChildren(Long id);
 
